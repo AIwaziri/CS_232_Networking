@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/torrent_app_client_side" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/torrent_app_sever_side" vcs="Git" />
   </component>
 </project>
