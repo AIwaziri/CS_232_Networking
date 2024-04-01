@@ -4,23 +4,22 @@ import threading
 from time import sleep
 import random
 
-
 window = tk.Tk()
 window.title("Tic-Tac-Toe Server")
 
 # Top frame consisting of two buttons widgets (i.e. btnStart, btnStop)
 topFrame = tk.Frame(window)
-btnStart = tk.Button(topFrame, text="Start", command=lambda : start_server())
+btnStart = tk.Button(topFrame, text="Start", command=lambda: start_server())
 btnStart.pack(side=tk.LEFT)
-btnStop = tk.Button(topFrame, text="Stop", command=lambda : stop_server(), state=tk.DISABLED)
+btnStop = tk.Button(topFrame, text="Stop", command=lambda: stop_server(), state=tk.DISABLED)
 btnStop.pack(side=tk.LEFT)
 topFrame.pack(side=tk.TOP, pady=(5, 0))
 
 # Middle frame consisting of two labels for displaying the host and port info
 middleFrame = tk.Frame(window)
-lblHost = tk.Label(middleFrame, text = "Address: X.X.X.X")
+lblHost = tk.Label(middleFrame, text="Address: X.X.X.X")
 lblHost.pack(side=tk.LEFT)
-lblPort = tk.Label(middleFrame, text = "Port:XXXX")
+lblPort = tk.Label(middleFrame, text="Port:XXXX")
 lblPort.pack(side=tk.LEFT)
 middleFrame.pack(side=tk.TOP, pady=(5, 0))
 
@@ -35,10 +34,9 @@ scrollBar.config(command=tkDisplay.yview)
 tkDisplay.config(yscrollcommand=scrollBar.set, background="#F4F6F7", highlightbackground="grey", state="disabled")
 clientFrame.pack(side=tk.BOTTOM, pady=(5, 10))
 
-
 server = None
 HOST_ADDR = "0.0.0.0"
-HOST_PORT = 8080
+HOST_PORT = 8888
 client_name = " "
 clients = []
 clients_names = []
@@ -47,13 +45,13 @@ player_data = []
 
 # Start server function
 def start_server():
-    global server, HOST_ADDR, HOST_PORT # code is fine without this
+    global server, HOST_ADDR, HOST_PORT  # code is fine without this
     btnStart.config(state=tk.DISABLED)
     btnStop.config(state=tk.NORMAL)
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    print socket.AF_INET
-    print socket.SOCK_STREAM
+    print(socket.AF_INET)
+    print(socket.SOCK_STREAM)
 
     server.bind((HOST_ADDR, HOST_PORT))
     server.listen(5)  # server is listening for client connection
@@ -67,6 +65,9 @@ def start_server():
 # Stop server function
 def stop_server():
     global server
+    if server is not None:
+        server.close()
+        server = None
     btnStart.config(state=tk.NORMAL)
     btnStop.config(state=tk.DISABLED)
 
@@ -106,7 +107,6 @@ def send_receive_client_message(client_connection, client_ip_addr):
         # send opponent name and symbol
         clients[0].send("opponent_name$" + clients_names[1] + "symbol" + symbols[0])
         clients[1].send("opponent_name$" + clients_names[0] + "symbol" + symbols[1])
-
 
     while True:
 
@@ -151,7 +151,7 @@ def update_client_names_display(name_list):
     tkDisplay.delete('1.0', tk.END)
 
     for c in name_list:
-        tkDisplay.insert(tk.END, c+"\n")
+        tkDisplay.insert(tk.END, c + "\n")
     tkDisplay.config(state=tk.DISABLED)
 
 

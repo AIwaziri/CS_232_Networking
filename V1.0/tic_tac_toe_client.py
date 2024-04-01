@@ -23,7 +23,7 @@ top_frame = tk.Frame(window_main)
 # network client
 client = None
 HOST_ADDR = "0.0.0.0"
-HOST_PORT = 8080
+HOST_PORT = 8888
 
 list_labels = []
 num_cols = 3
